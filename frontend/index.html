@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AITU Hub Frontend</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__inner">
+      <div>
+        <p class="eyebrow">AITU HUB</p>
+        <h1>Campus life, one hub.</h1>
+        <p class="lead">Lost & Found, Buy & Sell, and official news powered by a shared API.</p>
+      </div>
+      <div class="card">
+        <h2>Quick Settings</h2>
+        <label>
+          Auth base (Django)
+          <input id="authBase" type="url" value="http://localhost:8000" />
+        </label>
+        <label>
+          API base (FastAPI)
+          <input id="apiBase" type="url" value="http://localhost:8001" />
+        </label>
+        <button id="saveSettings" class="btn">Save</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="grid">
+      <div class="card">
+        <h2>Login (JWT)</h2>
+        <label>
+          Email
+          <input id="loginEmail" type="email" placeholder="user@aitu.local" />
+        </label>
+        <label>
+          Password
+          <input id="loginPassword" type="password" placeholder="user123" />
+        </label>
+        <div class="actions">
+          <button id="loginBtn" class="btn">Login</button>
+          <button id="logoutBtn" class="btn ghost">Logout</button>
+        </div>
+        <p class="muted" id="tokenStatus">No token</p>
+      </div>
+      <div class="card">
+        <h2>Actions</h2>
+        <div class="actions">
+          <button id="refreshLostFound" class="btn ghost">Refresh Lost & Found</button>
+          <button id="refreshProducts" class="btn ghost">Refresh Products</button>
+          <button id="refreshNews" class="btn ghost">Refresh News</button>
+        </div>
+        <div id="flash" class="flash"></div>
+      </div>
+    </section>
+
+    <section class="module">
+      <div class="module__header">
+        <h2>Lost & Found</h2>
+        <select id="lostfoundFilter">
+          <option value="">All</option>
+          <option value="lost">Lost</option>
+          <option value="found">Found</option>
+        </select>
+      </div>
+      <div class="split">
+        <div>
+          <h3>Create listing</h3>
+          <form id="lostfoundForm" class="form">
+            <input name="title" placeholder="Title" required />
+            <textarea name="description" placeholder="Description" required></textarea>
+            <div class="row">
+              <select name="status" required>
+                <option value="">Status</option>
+                <option value="lost">Lost</option>
+                <option value="found">Found</option>
+              </select>
+              <input name="location" placeholder="Location" required />
+            </div>
+            <input name="image_url" type="url" placeholder="Image URL (optional)" />
+            <input name="contact_info" placeholder="Contact info" required />
+            <button class="btn" type="submit">Create</button>
+          </form>
+        </div>
+        <div>
+          <h3>Listings</h3>
+          <div id="lostfoundList" class="list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="module">
+      <div class="module__header">
+        <h2>Buy & Sell</h2>
+        <select id="productFilter">
+          <option value="">All</option>
+          <option value="electronics">Electronics</option>
+          <option value="books">Books</option>
+          <option value="furniture">Furniture</option>
+          <option value="others">Others</option>
+        </select>
+      </div>
+      <div class="split">
+        <div>
+          <h3>Create product</h3>
+          <form id="productForm" class="form">
+            <input name="title" placeholder="Title" required />
+            <textarea name="description" placeholder="Description" required></textarea>
+            <div class="row">
+              <input name="price" type="number" min="0" placeholder="Price (KZT)" required />
+              <select name="category" required>
+                <option value="">Category</option>
+                <option value="electronics">Electronics</option>
+                <option value="books">Books</option>
+                <option value="furniture">Furniture</option>
+                <option value="others">Others</option>
+              </select>
+            </div>
+            <input name="image_url" type="url" placeholder="Image URL (optional)" />
+            <input name="contact_info" placeholder="Contact info" required />
+            <button class="btn" type="submit">Create</button>
+          </form>
+        </div>
+        <div>
+          <h3>Products</h3>
+          <div id="productList" class="list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="module">
+      <div class="module__header">
+        <h2>AITU News</h2>
+      </div>
+      <div class="split">
+        <div>
+          <h3>Create news (admin only)</h3>
+          <form id="newsForm" class="form">
+            <input name="title" placeholder="Title" required />
+            <input name="preview_text" placeholder="Preview text" required />
+            <textarea name="content" placeholder="Content" required></textarea>
+            <input name="image_url" type="url" placeholder="Image URL (optional)" />
+            <button class="btn" type="submit">Create</button>
+          </form>
+        </div>
+        <div>
+          <h3>News</h3>
+          <div id="newsList" class="list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>AITU Hub frontend placeholder for API testing.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

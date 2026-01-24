@@ -1,0 +1,37 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<h1 class="title">AITU Hub</h1>
+<p>Welcome to the university platform for Lost & Found, Buy & Sell, and AITU News.</p>
+<div class="columns">
+    <div class="column">
+        <div class="box">
+            <h2 class="subtitle">Lost & Found</h2>
+            <p>Report missing items or found items.</p>
+            <a class="button is-small" href="{% url 'lostfound_list' %}">Browse</a>
+            {% if user.is_authenticated %}
+                <a class="button is-small" href="{% url 'lostfound_create' %}">Create</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="column">
+        <div class="box">
+            <h2 class="subtitle">Buy & Sell</h2>
+            <p>List items for sale within the campus community.</p>
+            <a class="button is-small" href="{% url 'product_list' %}">Browse</a>
+            {% if user.is_authenticated %}
+                <a class="button is-small" href="{% url 'product_create' %}">Create</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="column">
+        <div class="box">
+            <h2 class="subtitle">AITU News</h2>
+            <p>Official news and announcements.</p>
+            <a class="button is-small" href="{% url 'news_list' %}">Browse</a>
+            {% if user.is_staff %}
+                <a class="button is-small" href="{% url 'news_create' %}">Create</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

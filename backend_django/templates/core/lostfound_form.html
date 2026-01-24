@@ -1,0 +1,14 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<h1 class="title">{{ title }}</h1>
+{% if form.errors %}
+    <div class="notification is-danger">
+        Please fix the highlighted errors below.
+    </div>
+{% endif %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="button is-primary" type="submit">Save</button>
+</form>
+{% endblock %}

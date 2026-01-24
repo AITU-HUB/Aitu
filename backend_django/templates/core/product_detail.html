@@ -1,0 +1,19 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<h1 class="title">{{ item.title }}</h1>
+<p><strong>Category:</strong> {{ item.get_category_display }}</p>
+<p><strong>Price:</strong> {{ item.price }} KZT</p>
+<p><strong>Contact:</strong> {{ item.contact_info }}</p>
+<p>{{ item.description }}</p>
+{% if item.image_url %}
+    <figure class="image">
+        <img src="{{ item.image_url }}" alt="{{ item.title }}">
+    </figure>
+{% endif %}
+{% if user.is_authenticated and item.created_by == user %}
+    <div class="buttons">
+        <a class="button is-warning" href="{% url 'product_edit' item.id %}">Edit</a>
+        <a class="button is-danger" href="{% url 'product_delete' item.id %}">Delete</a>
+    </div>
+{% endif %}
+{% endblock %}

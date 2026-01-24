@@ -1,0 +1,40 @@
+﻿version: '3.9'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: aitu_hub
+      POSTGRES_USER: aitu_user
+      POSTGRES_PASSWORD: aitu_pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend_django:
+    build: ./backend_django
+    command: gunicorn aitu_hub.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./backend_django:/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+
+  api_fastapi:
+    build: ./api_fastapi
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8001
+    volumes:
+      - ./api_fastapi/app:/app/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+    ports:
+      - "8001:8001"
+
+volumes:
+  postgres_data:

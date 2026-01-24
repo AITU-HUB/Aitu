@@ -1,0 +1,16 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<h1 class="title">{{ item.title }}</h1>
+<p>{{ item.content }}</p>
+{% if item.image_url %}
+    <figure class="image">
+        <img src="{{ item.image_url }}" alt="{{ item.title }}">
+    </figure>
+{% endif %}
+{% if user.is_staff %}
+    <div class="buttons">
+        <a class="button is-warning" href="{% url 'news_edit' item.id %}">Edit</a>
+        <a class="button is-danger" href="{% url 'news_delete' item.id %}">Delete</a>
+    </div>
+{% endif %}
+{% endblock %}
